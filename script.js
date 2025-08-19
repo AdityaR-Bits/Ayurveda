@@ -65,8 +65,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             }
             
-            // Simulate form submission
-            showAlert('Thank you! Your appointment request has been sent. We will contact you soon.', 'success');
+            // Send email using EmailJS or similar service
+            sendAppointmentEmail(name, phone, email, service, message);
             
             // Reset form
             this.reset();
@@ -296,6 +296,52 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
+
+    // Function to send appointment email
+    function sendAppointmentEmail(name, phone, email, service, message) {
+        // Initialize EmailJS (you'll need to get these credentials from emailjs.com)
+        emailjs.init("YOUR_USER_ID"); // Replace with your EmailJS User ID
+        
+        // EmailJS template parameters
+        const templateParams = {
+            to_email: "aditya.rustagi54@gmail.com",
+            from_name: name,
+            from_phone: phone,
+            from_email: email || "Not provided",
+            service_required: service || "Not specified",
+            message: message || "No additional message",
+            subject: `New Appointment Request - ${name}`
+        };
+        
+        // Send email using EmailJS
+        emailjs.send("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", templateParams)
+            .then(function(response) {
+                showAlert('Thank you! Your appointment request has been sent successfully. We will contact you soon.', 'success');
+            }, function(error) {
+                // Fallback to mailto if EmailJS fails
+                const emailBody = `
+New Appointment Request
+
+Name: ${name}
+Phone: ${phone}
+Email: ${email || 'Not provided'}
+Service Required: ${service || 'Not specified'}
+Message: ${message || 'No additional message'}
+
+---
+This email was sent from the Adopt The Ayurveda website contact form.
+                `;
+                
+                const mailtoLink = `mailto:aditya.rustagi54@gmail.com?subject=New Appointment Request - ${name}&body=${encodeURIComponent(emailBody)}`;
+                
+                try {
+                    window.open(mailtoLink);
+                    showAlert('Email client opened! Please send the email to complete your appointment request.', 'info');
+                } catch (err) {
+                    showAlert(`Please send an email to aditya.rustagi54@gmail.com with the following details:\n\nName: ${name}\nPhone: ${phone}\nService: ${service || 'Not specified'}`, 'info');
+                }
+            });
+    }
 
     // Add WhatsApp integration (optional)
     function addWhatsAppButton() {
