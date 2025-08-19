@@ -212,11 +212,24 @@ body {
 }
 
 /* Doctor Section */
-.doctor-section {
-    background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+.doctor-image {
+    animation: pulse 4s ease-in-out infinite;
+}
+
+.doctor-image img {
     border-radius: 15px;
-    padding: 2rem;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+}
+
+.doctor-image img:hover {
+    transform: scale(1.02);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
 }
 
 /* About Section Images */
