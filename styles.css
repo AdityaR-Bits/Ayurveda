@@ -54,6 +54,27 @@ body {
     animation: float 6s ease-in-out infinite;
 }
 
+.hero-image img {
+    border: 3px solid rgba(25, 135, 84, 0.1);
+    transition: all 0.3s ease;
+    box-shadow: 0 15px 40px rgba(25, 135, 84, 0.2);
+}
+
+.hero-image img:hover {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 20px 50px rgba(25, 135, 84, 0.3);
+    border-color: rgba(25, 135, 84, 0.3);
+}
+
+.image-overlay {
+    opacity: 0.8;
+    transition: opacity 0.3s ease;
+}
+
+.hero-image:hover .image-overlay {
+    opacity: 1;
+}
+
 @keyframes float {
     0%, 100% { transform: translateY(0px); }
     50% { transform: translateY(-20px); }
