@@ -78,6 +78,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
             
             // Send email using EmailJS or similar service
+            console.log('Form submitted successfully, calling sendAppointmentEmail...');
             sendAppointmentEmail(name, phone, email, service, message);
             
             // Reset form
@@ -311,7 +312,18 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Function to send appointment email using EmailJS
     function sendAppointmentEmail(name, phone, email, service, message) {
+        console.log('Starting email send process...');
+        console.log('Form data:', { name, phone, email, service, message });
+        
+        // Check if EmailJS is loaded
+        if (typeof emailjs === 'undefined') {
+            console.error('EmailJS is not loaded!');
+            showAlert('Email service is not available. Please try again later.', 'danger');
+            return;
+        }
+        
         // Initialize EmailJS with your User ID
+        console.log('Initializing EmailJS with User ID: PTTVqZgqFup6EbJwz');
         emailjs.init("PTTVqZgqFup6EbJwz");
         
         // EmailJS template parameters
@@ -326,13 +338,17 @@ document.addEventListener('DOMContentLoaded', function() {
             reply_to: email || "adopt.ayurveda.service@gmail.com"
         };
         
+        console.log('Template parameters:', templateParams);
+        console.log('Sending email with service_h24b69s and template_yj5h4d4');
+        
         // Send email using EmailJS with your service and template IDs
         emailjs.send("service_h24b69s", "template_yj5h4d4", templateParams)
             .then(function(response) {
                 console.log('Email sent successfully:', response);
                 showAlert('Thank you! Your appointment request has been sent successfully. We will contact you soon.', 'success');
             }, function(error) {
-                console.error('EmailJS failed:', error);
+                console.error('EmailJS failed with error:', error);
+                console.error('Error details:', JSON.stringify(error, null, 2));
                 showAlert('There was an error sending your request. Please try again or call us directly.', 'danger');
                 // Fallback to mailto if EmailJS fails
                 fallbackEmailMethod(name, phone, email, service, message);
@@ -422,6 +438,20 @@ This email was sent from the Adopt The Ayurveda website contact form.
             console.log('Our Services button clicked');
         });
     }
+
+    // Test EmailJS functionality
+    function testEmailJS() {
+        console.log('Testing EmailJS...');
+        if (typeof emailjs !== 'undefined') {
+            console.log('EmailJS is loaded successfully');
+            console.log('EmailJS version:', emailjs.version || 'Unknown');
+        } else {
+            console.error('EmailJS is not loaded');
+        }
+    }
+    
+    // Run test when page loads
+    testEmailJS();
 
     console.log('Adopt The Ayurveda website loaded successfully!');
 }); 
