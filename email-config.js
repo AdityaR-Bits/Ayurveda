@@ -13,15 +13,23 @@ const EMAILJS_CONFIG = {
     TO_EMAIL: "aditya.rustagi54@gmail.com"
 };
 
-// METHOD 2: Formspree Configuration (Alternative)
+// METHOD 2: Formspree Configuration (RECOMMENDED - Easiest Setup)
 // 1. Go to https://formspree.io/
 // 2. Create account and get form endpoint
 // 3. Replace the value below:
 
 const FORMSPREE_CONFIG = {
-    ENDPOINT: "YOUR_FORMSPREE_ENDPOINT", // Get from Formspree dashboard
+    ENDPOINT: "https://formspree.io/f/YOUR_FORM_ID", // Get from Formspree dashboard
     TO_EMAIL: "aditya.rustagi54@gmail.com"
 };
+
+// Quick Formspree Setup Instructions:
+// 1. Go to https://formspree.io/forms/new
+// 2. Enter your email: aditya.rustagi54@gmail.com
+// 3. Click "Create Form"
+// 4. Copy the form endpoint (looks like: https://formspree.io/f/xpzgkqyz)
+// 5. Replace "YOUR_FORM_ID" in the ENDPOINT above
+// 6. Change ACTIVE_EMAIL_METHOD to 'formspree'
 
 // METHOD 3: Netlify Forms (if hosting on Netlify)
 // Just add netlify attribute to your form - no configuration needed

@@ -311,7 +311,40 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Function to send appointment email
     function sendAppointmentEmail(name, phone, email, service, message) {
-        // Method 1: Try EmailJS first (if configured)
+        // Method 1: Try Formspree first (easiest option)
+        const formspreeEndpoint = "https://formspree.io/f/YOUR_FORM_ID"; // Replace with your Formspree endpoint
+        
+        if (formspreeEndpoint !== "https://formspree.io/f/YOUR_FORM_ID") {
+            fetch(formspreeEndpoint, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    name: name,
+                    phone: phone,
+                    email: email || "Not provided",
+                    service: service || "Not specified",
+                    message: message || "No additional message",
+                    _subject: `New Appointment Request - ${name}`,
+                    _replyto: email || "noreply@example.com"
+                })
+            })
+            .then(response => {
+                if (response.ok) {
+                    showAlert('Thank you! Your appointment request has been sent successfully. We will contact you soon.', 'success');
+                } else {
+                    throw new Error('Formspree request failed');
+                }
+            })
+            .catch(error => {
+                console.error('Formspree failed:', error);
+                fallbackEmailMethod(name, phone, email, service, message);
+            });
+            return;
+        }
+        
+        // Method 2: Try EmailJS (if configured)
         if (typeof emailjs !== 'undefined') {
             try {
                 // Initialize EmailJS (replace with your actual credentials)
@@ -342,7 +375,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
         
-        // Method 2: Fallback to mailto
+        // Method 3: Fallback to mailto
         fallbackEmailMethod(name, phone, email, service, message);
     }
     
