@@ -9,12 +9,24 @@ document.addEventListener('DOMContentLoaded', function() {
             const targetId = this.getAttribute('href');
             const targetSection = document.querySelector(targetId);
             
+            console.log('Clicked link:', targetId, 'Target section:', targetSection);
+            
             if (targetSection) {
                 const offsetTop = targetSection.offsetTop - 80; // Account for fixed navbar
-                window.scrollTo({
-                    top: offsetTop,
-                    behavior: 'smooth'
-                });
+                console.log('Scrolling to:', offsetTop);
+                
+                // Try smooth scrolling first
+                if ('scrollBehavior' in document.documentElement.style) {
+                    window.scrollTo({
+                        top: offsetTop,
+                        behavior: 'smooth'
+                    });
+                } else {
+                    // Fallback for browsers that don't support smooth scrolling
+                    window.scrollTo(0, offsetTop);
+                }
+            } else {
+                console.error('Target section not found:', targetId);
             }
         });
     });
@@ -383,6 +395,22 @@ This email was sent from the Adopt The Ayurveda website contact form.
             navbarCollapse.classList.remove('show');
         }
     });
+
+    // Additional button click handlers for debugging
+    const bookAppointmentBtn = document.querySelector('a[href="#contact"]');
+    const ourServicesBtn = document.querySelector('a[href="#services"]');
+    
+    if (bookAppointmentBtn) {
+        bookAppointmentBtn.addEventListener('click', function(e) {
+            console.log('Book Appointment button clicked');
+        });
+    }
+    
+    if (ourServicesBtn) {
+        ourServicesBtn.addEventListener('click', function(e) {
+            console.log('Our Services button clicked');
+        });
+    }
 
     console.log('Adopt The Ayurveda website loaded successfully!');
 }); 
