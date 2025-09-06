@@ -1,7 +1,7 @@
 // Wait for DOM to be fully loaded
 document.addEventListener('DOMContentLoaded', function() {
     
-    // Simple and reliable smooth scrolling for navigation links
+    // Smooth scrolling for navigation links
     const navLinks = document.querySelectorAll('a[href^="#"]');
     console.log('Found navigation links:', navLinks.length);
     
@@ -15,21 +15,19 @@ document.addEventListener('DOMContentLoaded', function() {
             console.log('Clicked link:', targetId, 'Target section:', targetSection);
             
             if (targetSection) {
-                // Simple scroll to element with offset for navbar
-                const offsetTop = targetSection.offsetTop - 80;
+                const offsetTop = targetSection.offsetTop - 80; // Account for fixed navbar
                 console.log('Scrolling to:', offsetTop);
                 
-                // Use the most reliable scrolling method
-                targetSection.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
-                
-                // Adjust for navbar after scroll
-                setTimeout(() => {
-                    window.scrollBy(0, -80);
-                }, 100);
-                
+                // Try smooth scrolling first
+                if ('scrollBehavior' in document.documentElement.style) {
+                    window.scrollTo({
+                        top: offsetTop,
+                        behavior: 'smooth'
+                    });
+                } else {
+                    // Fallback for browsers that don't support smooth scrolling
+                    window.scrollTo(0, offsetTop);
+                }
             } else {
                 console.error('Target section not found:', targetId);
             }
@@ -538,25 +536,10 @@ Message: ${message || 'No additional message'}`;
         if (target) {
             const offsetTop = target.offsetTop - 80;
             console.log('Manual scroll test to:', targetId, 'at position:', offsetTop);
-            target.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
+            window.scrollTo({
+                top: offsetTop,
+                behavior: 'smooth'
             });
-            setTimeout(() => {
-                window.scrollBy(0, -80);
-            }, 100);
-        } else {
-            console.error('Target not found:', targetId);
-        }
-    };
-    
-    // Emergency fallback - direct scroll without smooth behavior
-    window.emergencyScroll = function(targetId) {
-        const target = document.querySelector(targetId);
-        if (target) {
-            const offsetTop = target.offsetTop - 80;
-            console.log('Emergency scroll to:', targetId, 'at position:', offsetTop);
-            window.scrollTo(0, offsetTop);
         } else {
             console.error('Target not found:', targetId);
         }

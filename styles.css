@@ -358,16 +358,6 @@ html {
     scroll-behavior: smooth;
 }
 
-/* Ensure anchor links work even without JavaScript */
-a[href^="#"] {
-    cursor: pointer;
-}
-
-/* Add scroll padding for fixed navbar */
-html {
-    scroll-padding-top: 80px;
-}
-
 /* Loading Animation */
 .loading {
     opacity: 0;
