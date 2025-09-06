@@ -312,9 +312,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Function to send appointment email using EmailJS
     function sendAppointmentEmail(name, phone, email, service, message) {
         // Initialize EmailJS with your User ID
-        // You need to replace "YOUR_USER_ID" with your actual EmailJS User ID
-        // To find it: Go to EmailJS dashboard → Account → General → User ID
-        emailjs.init("YOUR_USER_ID");
+        emailjs.init("PTTVqZgqFup6EbJwz");
         
         // EmailJS template parameters
         const templateParams = {
@@ -324,7 +322,8 @@ document.addEventListener('DOMContentLoaded', function() {
             from_email: email || "Not provided",
             service_required: service || "Not specified",
             message: message || "No additional message",
-            subject: `New Appointment Request - ${name}`
+            subject: `New Appointment Request - ${name}`,
+            reply_to: email || "adopt.ayurveda.service@gmail.com"
         };
         
         // Send email using EmailJS with your service and template IDs

@@ -2,10 +2,11 @@
 // Using EmailJS for appointment form emails
 
 const EMAILJS_CONFIG = {
-    USER_ID: "YOUR_USER_ID",           // Get from EmailJS dashboard
+    USER_ID: "PTTVqZgqFup6EbJwz",      // Your EmailJS User ID
     SERVICE_ID: "service_h24b69s",     // Your EmailJS Service ID
     TEMPLATE_ID: "template_yj5h4d4",   // Your EmailJS Template ID
-    TO_EMAIL: "aditya.rustagi54@gmail.com"
+    FROM_EMAIL: "adopt.ayurveda.service@gmail.com", // Sender email
+    TO_EMAIL: "aditya.rustagi54@gmail.com"          // Recipient email
 };
 
 // METHOD 2: Formspree Configuration (RECOMMENDED - Easiest Setup)
