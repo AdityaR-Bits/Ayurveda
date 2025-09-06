@@ -318,7 +318,12 @@ document.addEventListener('DOMContentLoaded', function() {
         // Check if EmailJS is loaded
         if (typeof emailjs === 'undefined') {
             console.error('EmailJS is not loaded!');
-            showAlert('Email service is not available. Please try again later.', 'danger');
+            console.error('This is common on GitHub Pages due to CORS restrictions');
+            showAlert('Email service is temporarily unavailable. Please call us directly at +91 9654136674 or try again later.', 'danger');
+            // Show fallback contact info
+            setTimeout(() => {
+                showAlert('Alternative: You can also WhatsApp us at +91 9654136674', 'info');
+            }, 3000);
             return;
         }
         
@@ -442,16 +447,31 @@ This email was sent from the Adopt The Ayurveda website contact form.
     // Test EmailJS functionality
     function testEmailJS() {
         console.log('Testing EmailJS...');
+        console.log('Current domain:', window.location.hostname);
+        console.log('Protocol:', window.location.protocol);
+        
         if (typeof emailjs !== 'undefined') {
             console.log('EmailJS is loaded successfully');
             console.log('EmailJS version:', emailjs.version || 'Unknown');
         } else {
             console.error('EmailJS is not loaded');
+            console.error('This might be due to CORS issues on GitHub Pages');
         }
     }
     
     // Run test when page loads
     testEmailJS();
+    
+    // Check if we're on GitHub Pages
+    if (window.location.hostname.includes('github.io')) {
+        console.log('Running on GitHub Pages - EmailJS may have CORS issues');
+        // Add a small delay to allow fallback CDN to load
+        setTimeout(() => {
+            if (typeof emailjs === 'undefined') {
+                console.warn('EmailJS still not loaded after fallback attempt');
+            }
+        }, 2000);
+    }
 
     console.log('Adopt The Ayurveda website loaded successfully!');
 }); 
