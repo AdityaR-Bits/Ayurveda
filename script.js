@@ -3,7 +3,10 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Smooth scrolling for navigation links
     const navLinks = document.querySelectorAll('a[href^="#"]');
-    navLinks.forEach(link => {
+    console.log('Found navigation links:', navLinks.length);
+    
+    navLinks.forEach((link, index) => {
+        console.log(`Link ${index}:`, link.href, link.textContent.trim());
         link.addEventListener('click', function(e) {
             e.preventDefault();
             const targetId = this.getAttribute('href');
@@ -468,19 +471,30 @@ Message: ${message || 'No additional message'}`;
         }
     });
 
-    // Additional button click handlers for debugging
-    const bookAppointmentBtn = document.querySelector('a[href="#contact"]');
-    const ourServicesBtn = document.querySelector('a[href="#services"]');
+    // Additional button click handlers for debugging - target hero section specifically
+    const heroSection = document.querySelector('.hero-section');
+    const bookAppointmentBtn = heroSection ? heroSection.querySelector('a[href="#contact"]') : null;
+    const ourServicesBtn = heroSection ? heroSection.querySelector('a[href="#services"]') : null;
+    
+    console.log('Hero buttons found:', {
+        heroSection: !!heroSection,
+        bookAppointment: !!bookAppointmentBtn,
+        ourServices: !!ourServicesBtn
+    });
     
     if (bookAppointmentBtn) {
         bookAppointmentBtn.addEventListener('click', function(e) {
-            console.log('Book Appointment button clicked');
+            console.log('Hero Book Appointment button clicked');
+            console.log('Button href:', this.getAttribute('href'));
+            console.log('Target element:', document.querySelector(this.getAttribute('href')));
         });
     }
     
     if (ourServicesBtn) {
         ourServicesBtn.addEventListener('click', function(e) {
-            console.log('Our Services button clicked');
+            console.log('Hero Our Services button clicked');
+            console.log('Button href:', this.getAttribute('href'));
+            console.log('Target element:', document.querySelector(this.getAttribute('href')));
         });
     }
 
@@ -516,5 +530,21 @@ Message: ${message || 'No additional message'}`;
         }, 3000);
     }
 
+    // Test function for manual scrolling
+    window.testScroll = function(targetId) {
+        const target = document.querySelector(targetId);
+        if (target) {
+            const offsetTop = target.offsetTop - 80;
+            console.log('Manual scroll test to:', targetId, 'at position:', offsetTop);
+            window.scrollTo({
+                top: offsetTop,
+                behavior: 'smooth'
+            });
+        } else {
+            console.error('Target not found:', targetId);
+        }
+    };
+
     console.log('Adopt The Ayurveda website loaded successfully!');
+    console.log('Test scrolling with: testScroll("#contact") or testScroll("#services")');
 }); 
