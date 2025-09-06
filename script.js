@@ -1,33 +1,22 @@
 // Wait for DOM to be fully loaded
 document.addEventListener('DOMContentLoaded', function() {
     
-    // Smooth scrolling for navigation links
+    // Simple navigation - let browser handle it naturally with CSS smooth scrolling
     const navLinks = document.querySelectorAll('a[href^="#"]');
     console.log('Found navigation links:', navLinks.length);
     
     navLinks.forEach((link, index) => {
         console.log(`Link ${index}:`, link.href, link.textContent.trim());
+        
+        // Just add a click handler for logging, but don't prevent default behavior
         link.addEventListener('click', function(e) {
-            e.preventDefault();
             const targetId = this.getAttribute('href');
             const targetSection = document.querySelector(targetId);
             
             console.log('Clicked link:', targetId, 'Target section:', targetSection);
             
             if (targetSection) {
-                const offsetTop = targetSection.offsetTop - 80; // Account for fixed navbar
-                console.log('Scrolling to:', offsetTop);
-                
-                // Try smooth scrolling first
-                if ('scrollBehavior' in document.documentElement.style) {
-                    window.scrollTo({
-                        top: offsetTop,
-                        behavior: 'smooth'
-                    });
-                } else {
-                    // Fallback for browsers that don't support smooth scrolling
-                    window.scrollTo(0, offsetTop);
-                }
+                console.log('Target section found, browser will handle navigation');
             } else {
                 console.error('Target section not found:', targetId);
             }
@@ -471,32 +460,8 @@ Message: ${message || 'No additional message'}`;
         }
     });
 
-    // Additional button click handlers for debugging - target hero section specifically
-    const heroSection = document.querySelector('.hero-section');
-    const bookAppointmentBtn = heroSection ? heroSection.querySelector('a[href="#contact"]') : null;
-    const ourServicesBtn = heroSection ? heroSection.querySelector('a[href="#services"]') : null;
-    
-    console.log('Hero buttons found:', {
-        heroSection: !!heroSection,
-        bookAppointment: !!bookAppointmentBtn,
-        ourServices: !!ourServicesBtn
-    });
-    
-    if (bookAppointmentBtn) {
-        bookAppointmentBtn.addEventListener('click', function(e) {
-            console.log('Hero Book Appointment button clicked');
-            console.log('Button href:', this.getAttribute('href'));
-            console.log('Target element:', document.querySelector(this.getAttribute('href')));
-        });
-    }
-    
-    if (ourServicesBtn) {
-        ourServicesBtn.addEventListener('click', function(e) {
-            console.log('Hero Our Services button clicked');
-            console.log('Button href:', this.getAttribute('href'));
-            console.log('Target element:', document.querySelector(this.getAttribute('href')));
-        });
-    }
+    // Simple button click logging
+    console.log('Navigation setup complete - buttons should work with CSS smooth scrolling');
 
     // Test EmailJS functionality
     function testEmailJS() {
@@ -530,21 +495,5 @@ Message: ${message || 'No additional message'}`;
         }, 3000);
     }
 
-    // Test function for manual scrolling
-    window.testScroll = function(targetId) {
-        const target = document.querySelector(targetId);
-        if (target) {
-            const offsetTop = target.offsetTop - 80;
-            console.log('Manual scroll test to:', targetId, 'at position:', offsetTop);
-            window.scrollTo({
-                top: offsetTop,
-                behavior: 'smooth'
-            });
-        } else {
-            console.error('Target not found:', targetId);
-        }
-    };
-
     console.log('Adopt The Ayurveda website loaded successfully!');
-    console.log('Test scrolling with: testScroll("#contact") or testScroll("#services")');
 }); 
