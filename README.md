@@ -2,7 +2,7 @@
 
 A modern, responsive website for Dr. Praveen Rustagi's Ayurveda and Nutrition clinic located in Malviya Nagar, Delhi.
 
-## 🌟 Features
+## Features
 
 - **Responsive Design**: Works perfectly on desktop, tablet, and mobile devices
 - **Modern UI/UX**: Clean, professional design with smooth animations
@@ -12,7 +12,7 @@ A modern, responsive website for Dr. Praveen Rustagi's Ayurveda and Nutrition cl
 - **Contact Integration**: WhatsApp button and phone call functionality
 - **Accessibility**: Keyboard navigation and screen reader friendly
 
-## 📁 File Structure
+## File Structure
 
 ```
 Ayurveda/
@@ -23,7 +23,7 @@ Ayurveda/
 └── README.md           # This file
 ```
 
-## 🚀 Hosting Options
+## Hosting Options
 
 ### Option 1: GitHub Pages (Free)
 1. Create a new GitHub repository
@@ -49,7 +49,7 @@ Ayurveda/
 2. Ensure `index.html` is in the root directory
 3. Configure your domain to point to the hosting
 
-## 🎨 Customization
+## Customization
 
 ### Colors
 The website uses a green color scheme (#198754). To change colors:
@@ -70,7 +70,7 @@ To add real images:
 2. Add images to the project folder
 3. Update HTML to use `<img>` tags instead of icons
 
-## 📱 Mobile Optimization
+## Mobile Optimization
 
 The website is fully responsive and includes:
 - Mobile-first design approach
@@ -78,7 +78,7 @@ The website is fully responsive and includes:
 - Optimized form inputs for mobile
 - WhatsApp integration for easy contact
 
-## 🔧 Technical Details
+## Technical Details
 
 ### Technologies Used
 - **HTML5**: Semantic markup
@@ -95,7 +95,7 @@ The website is fully responsive and includes:
 - Edge (latest)
 - Mobile browsers
 
-## 📞 Contact Information
+## Contact Information
 
 **Dr. Praveen Rustagi**
 - **Phone**: +91 9654136674
@@ -103,7 +103,7 @@ The website is fully responsive and includes:
 - **Timings**: Mon-Sat 10:00 AM - 12:30 PM, 05:00 PM - 07:00 PM
 - **Consultation Fee**: ₹500
 
-## 🛠️ Development
+## Development
 
 ### Local Development
 1. Clone or download the files
@@ -126,7 +126,7 @@ The website is fully responsive and includes:
 - **Forms**: Extend the existing form handling in `script.js`
 - **Analytics**: Add Google Analytics or other tracking codes
 
-## 📊 SEO Features
+## SEO Features
 
 The website includes:
 - Meta description and keywords
@@ -135,14 +135,14 @@ The website includes:
 - Open Graph tags (can be extended)
 - Schema markup (can be added)
 
-## 🔒 Security Considerations
+## Security Considerations
 
 - Form validation on both client and server side
 - HTTPS recommended for production
 - Input sanitization for forms
 - No sensitive data in client-side code
 
-## 📈 Performance Optimization
+## Performance Optimization
 
 - Minified CSS and JavaScript (recommended for production)
 - Optimized images (when added)
@@ -150,7 +150,7 @@ The website includes:
 - Efficient CSS animations
 - Minimal external dependencies
 
-## 🎯 Future Enhancements
+## Future Enhancements
 
 Potential improvements:
 - Blog section for health tips
@@ -161,11 +161,11 @@ Potential improvements:
 - Advanced analytics
 - Email newsletter signup
 
-## 📄 License
+## License
 
 This website template is created for Dr. Praveen Rustagi's clinic. Please ensure you have permission to use any content or modify as needed.
 
-## 🤝 Support
+## Support
 
 For technical support or customization requests, please contact the developer or refer to the hosting platform's documentation.
 
