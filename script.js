@@ -327,6 +327,13 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
         
+        // Additional check for EmailJS initialization
+        if (!emailjs.init) {
+            console.error('EmailJS is loaded but init function is not available');
+            showAlert('Email service is not properly initialized. Please try again or contact us directly.', 'danger');
+            return;
+        }
+        
         // Initialize EmailJS with your User ID
         console.log('Initializing EmailJS with User ID: PTTVqZgqFup6EbJwz');
         emailjs.init("PTTVqZgqFup6EbJwz");
@@ -360,31 +367,64 @@ document.addEventListener('DOMContentLoaded', function() {
             });
     }
     
-    // Fallback email method
+    // Fallback email method - improved for better user experience
     function fallbackEmailMethod(name, phone, email, service, message) {
-        const emailBody = `
-New Appointment Request
+        // Instead of mailto, show a user-friendly message with contact options
+        const contactInfo = `
+Appointment Request Details:
+• Name: ${name}
+• Phone: ${phone}
+• Email: ${email || 'Not provided'}
+• Service: ${service || 'Not specified'}
+• Message: ${message || 'No additional message'}
 
-Patient Details:
+Please contact us using one of these methods:
+• Call: +91 9654136674
+• WhatsApp: +91 9654136674
+• Email: aditya.rustagi54@gmail.com
+        `;
+        
+        // Show a modal or alert with contact information
+        showAlert('Email service is temporarily unavailable. Please contact us directly:', 'warning');
+        
+        // Show contact details after a short delay
+        setTimeout(() => {
+            showAlert(contactInfo, 'info');
+        }, 2000);
+        
+        // Also provide WhatsApp option
+        setTimeout(() => {
+            const whatsappMessage = `Hi, I would like to book an appointment with Dr. Praveen Rustagi.
+
+My details:
 Name: ${name}
 Phone: ${phone}
 Email: ${email || 'Not provided'}
-
-Service Required: ${service || 'Not specified'}
-Message: ${message || 'No additional message'}
-
----
-This email was sent from the Adopt The Ayurveda website contact form.
-        `;
+Service: ${service || 'Not specified'}
+Message: ${message || 'No additional message'}`;
+            
+            const whatsappUrl = `https://wa.me/919654136674?text=${encodeURIComponent(whatsappMessage)}`;
+            
+            // Show WhatsApp option
+            const whatsappAlert = document.createElement('div');
+            whatsappAlert.className = 'alert alert-success alert-dismissible fade show mt-3';
+            whatsappAlert.innerHTML = `
+                <strong>Quick WhatsApp Option:</strong><br>
+                <a href="${whatsappUrl}" target="_blank" class="btn btn-success btn-sm mt-2">
+                    <i class="fab fa-whatsapp me-1"></i> Send via WhatsApp
+                </a>
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            `;
+            
+            // Add to contact form
+            const contactForm = document.querySelector('.contact-form');
+            if (contactForm) {
+                contactForm.appendChild(whatsappAlert);
+            }
+        }, 4000);
         
-        const mailtoLink = `mailto:aditya.rustagi54@gmail.com?subject=New Appointment Request - ${name}&body=${encodeURIComponent(emailBody)}`;
-        
-        try {
-            window.open(mailtoLink);
-            showAlert('Email client opened! Please send the email to complete your appointment request.', 'info');
-        } catch (err) {
-            showAlert(`Please send an email to aditya.rustagi54@gmail.com with the following details:\n\nName: ${name}\nPhone: ${phone}\nService: ${service || 'Not specified'}`, 'info');
-        }
+        // Also log the details for easy copying
+        console.log('Appointment Request Details:', contactInfo);
     }
 
     // Add WhatsApp integration (optional)
@@ -469,8 +509,11 @@ This email was sent from the Adopt The Ayurveda website contact form.
         setTimeout(() => {
             if (typeof emailjs === 'undefined') {
                 console.warn('EmailJS still not loaded after fallback attempt');
+                console.warn('Form will use fallback methods for email sending');
+            } else {
+                console.log('EmailJS loaded successfully on GitHub Pages');
             }
-        }, 2000);
+        }, 3000);
     }
 
     console.log('Adopt The Ayurveda website loaded successfully!');
