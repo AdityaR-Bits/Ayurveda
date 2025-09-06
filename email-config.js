@@ -1,15 +1,10 @@
 // Email Configuration for Adopt The Ayurveda
-// Choose one of the following methods:
-
-// METHOD 1: EmailJS Configuration
-// 1. Go to https://www.emailjs.com/
-// 2. Create account and get your credentials
-// 3. Replace the values below:
+// Using EmailJS for appointment form emails
 
 const EMAILJS_CONFIG = {
     USER_ID: "YOUR_USER_ID",           // Get from EmailJS dashboard
-    SERVICE_ID: "YOUR_SERVICE_ID",     // Get from Email Services
-    TEMPLATE_ID: "YOUR_TEMPLATE_ID",   // Get from Email Templates
+    SERVICE_ID: "service_h24b69s",     // Your EmailJS Service ID
+    TEMPLATE_ID: "template_yj5h4d4",   // Your EmailJS Template ID
     TO_EMAIL: "aditya.rustagi54@gmail.com"
 };
 
@@ -34,8 +29,8 @@ const FORMSPREE_CONFIG = {
 // METHOD 3: Netlify Forms (if hosting on Netlify)
 // Just add netlify attribute to your form - no configuration needed
 
-// Current active method (change to 'emailjs', 'formspree', or 'netlify')
-const ACTIVE_EMAIL_METHOD = 'fallback'; // 'emailjs', 'formspree', 'netlify', or 'fallback'
+// Current active method - using EmailJS
+const ACTIVE_EMAIL_METHOD = 'emailjs'; // Using EmailJS with your service and template IDs
 
 // Export configuration
 if (typeof module !== 'undefined' && module.exports) {

@@ -309,74 +309,35 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Function to send appointment email
+    // Function to send appointment email using EmailJS
     function sendAppointmentEmail(name, phone, email, service, message) {
-        // Method 1: Try Formspree first (easiest option)
-        const formspreeEndpoint = "https://formspree.io/f/YOUR_FORM_ID"; // Replace with your Formspree endpoint
+        // Initialize EmailJS with your User ID
+        // You need to replace "YOUR_USER_ID" with your actual EmailJS User ID
+        // To find it: Go to EmailJS dashboard → Account → General → User ID
+        emailjs.init("YOUR_USER_ID");
         
-        if (formspreeEndpoint !== "https://formspree.io/f/YOUR_FORM_ID") {
-            fetch(formspreeEndpoint, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    name: name,
-                    phone: phone,
-                    email: email || "Not provided",
-                    service: service || "Not specified",
-                    message: message || "No additional message",
-                    _subject: `New Appointment Request - ${name}`,
-                    _replyto: email || "noreply@example.com"
-                })
-            })
-            .then(response => {
-                if (response.ok) {
-                    showAlert('Thank you! Your appointment request has been sent successfully. We will contact you soon.', 'success');
-                } else {
-                    throw new Error('Formspree request failed');
-                }
-            })
-            .catch(error => {
-                console.error('Formspree failed:', error);
+        // EmailJS template parameters
+        const templateParams = {
+            to_email: "aditya.rustagi54@gmail.com",
+            from_name: name,
+            from_phone: phone,
+            from_email: email || "Not provided",
+            service_required: service || "Not specified",
+            message: message || "No additional message",
+            subject: `New Appointment Request - ${name}`
+        };
+        
+        // Send email using EmailJS with your service and template IDs
+        emailjs.send("service_h24b69s", "template_yj5h4d4", templateParams)
+            .then(function(response) {
+                console.log('Email sent successfully:', response);
+                showAlert('Thank you! Your appointment request has been sent successfully. We will contact you soon.', 'success');
+            }, function(error) {
+                console.error('EmailJS failed:', error);
+                showAlert('There was an error sending your request. Please try again or call us directly.', 'danger');
+                // Fallback to mailto if EmailJS fails
                 fallbackEmailMethod(name, phone, email, service, message);
             });
-            return;
-        }
-        
-        // Method 2: Try EmailJS (if configured)
-        if (typeof emailjs !== 'undefined') {
-            try {
-                // Initialize EmailJS (replace with your actual credentials)
-                emailjs.init("YOUR_USER_ID"); // Replace with your EmailJS User ID
-                
-                // EmailJS template parameters
-                const templateParams = {
-                    to_email: "aditya.rustagi54@gmail.com",
-                    from_name: name,
-                    from_phone: phone,
-                    from_email: email || "Not provided",
-                    service_required: service || "Not specified",
-                    message: message || "No additional message",
-                    subject: `New Appointment Request - ${name}`
-                };
-                
-                // Send email using EmailJS
-                emailjs.send("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", templateParams)
-                    .then(function(response) {
-                        showAlert('Thank you! Your appointment request has been sent successfully. We will contact you soon.', 'success');
-                    }, function(error) {
-                        console.error('EmailJS failed:', error);
-                        fallbackEmailMethod(name, phone, email, service, message);
-                    });
-                return;
-            } catch (error) {
-                console.error('EmailJS not configured:', error);
-            }
-        }
-        
-        // Method 3: Fallback to mailto
-        fallbackEmailMethod(name, phone, email, service, message);
     }
     
     // Fallback email method
