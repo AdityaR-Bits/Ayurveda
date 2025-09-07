@@ -460,6 +460,17 @@ Message: ${message || 'No additional message'}`;
         }
     });
 
+    // Test hero section buttons
+    const heroButtons = document.querySelectorAll('.hero-section .btn');
+    console.log('Hero buttons found:', heroButtons.length);
+    
+    heroButtons.forEach((btn, index) => {
+        console.log(`Button ${index}:`, btn.textContent.trim(), btn.href);
+        btn.addEventListener('click', function(e) {
+            console.log('Hero button clicked:', this.textContent.trim());
+        });
+    });
+    
     // Simple button click logging
     console.log('Navigation setup complete - buttons should work with CSS smooth scrolling');
 
