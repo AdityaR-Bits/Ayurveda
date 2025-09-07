@@ -255,15 +255,15 @@ document.addEventListener('DOMContentLoaded', function() {
         return true;
     }
 
-    // Add parallax effect to hero section
-    window.addEventListener('scroll', function() {
-        const scrolled = window.pageYOffset;
-        const heroSection = document.querySelector('.hero-section');
-        if (heroSection) {
-            const rate = scrolled * -0.5;
-            heroSection.style.transform = `translateY(${rate}px)`;
-        }
-    });
+    // Parallax effect disabled to fix interaction issues
+    // window.addEventListener('scroll', function() {
+    //     const scrolled = window.pageYOffset;
+    //     const heroSection = document.querySelector('.hero-section');
+    //     if (heroSection) {
+    //         const rate = scrolled * -0.5;
+    //         heroSection.style.transform = `translateY(${rate}px)`;
+    //     }
+    // });
 
     // Service cards hover effect enhancement
     const serviceCards = document.querySelectorAll('.service-card');
